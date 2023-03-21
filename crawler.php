@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-require_once realpath(__DIR__.'/..')."/vendor/autoload.php";
+require_once "vendor/autoload.php";
 
 # Change to base URL of your Omeka S instance
 
@@ -68,7 +68,7 @@ function process_jsonld($json) {
 		
 		$body=json_encode($json);
 		$body=preg_replace('#\\\/#',"/",$body);
-		preg_match_all('#'.$omeka_base.''\/[a-z_\-\/]+[0-9]+#',$body,$uris);
+		preg_match_all('#'.$omeka_base.'\/[a-z_\-\/]+[0-9]+#',$body,$uris);
 		
 		foreach($uris[0] as $uri) {
 			if (!isset($resources_seen[$uri])) {
@@ -95,7 +95,7 @@ function process_jsonld($json) {
 	}
 }
 
-function save_converted_if_changed($uri,$jsonld_string) {
+function save_if_changed($uri,$jsonld_string) {
 	$hash_of_uri=md5($uri);
 	$hash_of_jsonld_string=md5($jsonld_string);	
 			
